@@ -62,9 +62,9 @@ def update_documentation():
     """
 
     try:
-        # Using gemini-1.5-pro for complex coding/doc tasks
+        # Using gemini-3-pro-preview for the latest performance and compatibility
         response = client.models.generate_content(
-            model='gemini-1.5-pro',
+            model='gemini-3.1-pro-preview',
             contents=prompt
         )
         
