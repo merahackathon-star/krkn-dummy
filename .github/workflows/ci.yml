@@ -1,0 +1,26 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: krkn
+          environment-file: environment.yml
+          python-version: 3.10
+          auto-activate-base: false
+          
+      - name: Run Pytest
+        shell: bash -el {0}
+        run: |
+          python -m pytest tests/
