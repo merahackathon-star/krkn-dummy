@@ -18,7 +18,7 @@ jobs:
         with:
           activate-environment: krkn
           environment-file: environment.yml
-          python-version: 3.10
+          python-version: "3.10"
           auto-activate-base: false
           
       - name: Run Gemini Docs Updater
