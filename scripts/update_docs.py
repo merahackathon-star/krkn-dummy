@@ -62,9 +62,9 @@ def update_documentation():
     """
 
     try:
-        # Using gemini-3-pro-preview for the latest performance and compatibility
+        # Using gemini-3-flash-preview for higher quota on the free tier
         response = client.models.generate_content(
-            model='gemini-3.1-pro-preview',
+            model='gemini-3-flash-preview',
             contents=prompt
         )
         
