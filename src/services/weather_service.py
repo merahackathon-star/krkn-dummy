@@ -45,3 +45,22 @@ class WeatherService:
                 return response.json().get("current_weather")
             except httpx.HTTPError:
                 return None
+
+    async def get_forecast(self, latitude: float, longitude: float, days: int = 3) -> Optional[Dict[str, Any]]:
+        """Get weather forecast for coordinates."""
+        async with httpx.AsyncClient() as client:
+            try:
+                response = await client.get(
+                    self.BASE_URL,
+                    params={
+                        "latitude": latitude,
+                        "longitude": longitude,
+                        "daily": "temperature_2m_max,temperature_2m_min",
+                        "forecast_days": days,
+                        "timezone": "auto"
+                    }
+                )
+                response.raise_for_status()
+                return response.json().get("daily")
+            except httpx.HTTPError:
+                return None
