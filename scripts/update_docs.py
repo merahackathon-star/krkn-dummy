@@ -1,15 +1,12 @@
 import os
 import sys
-import google.generativeai as genai
+from google import genai
 from git import Repo
 
 def get_git_diff():
     try:
         repo = Repo(os.getcwd())
         # Getting diff against HEAD~1 (assuming script runs after a commit)
-        # For a PR, you might want to diff against main.
-        # This simple version diffs the working tree against HEAD if there are uncommitted changes,
-        # or HEAD~1 if it's running in CI after a commit.
         if repo.is_dirty():
             return repo.git.diff("HEAD")
         else:
@@ -24,7 +21,7 @@ def update_documentation():
         print("GEMINI_API_KEY environment variable not set.")
         sys.exit(1)
 
-    genai.configure(api_key=api_key)
+    client = genai.Client(api_key=api_key)
     
     # Read current documentation
     doc_path = "docs/content/en/api.md"
@@ -66,8 +63,10 @@ def update_documentation():
 
     try:
         # Using gemini-1.5-pro for complex coding/doc tasks
-        model = genai.GenerativeModel('gemini-1.5-pro')
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model='gemini-1.5-pro',
+            contents=prompt
+        )
         
         new_docs = response.text.strip()
         

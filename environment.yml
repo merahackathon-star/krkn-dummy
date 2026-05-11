@@ -3,7 +3,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python>=3.10
+  - python>=3.11
   - go
   - hugo>=0.120.0  # Ensure we get a recent extended version if possible
   - pip
@@ -13,5 +13,5 @@ dependencies:
       - httpx
       - pytest
       - pytest-asyncio
-      - google-generativeai
+      - google-genai
       - gitpython
